@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-tailwind/react": "^2.1.4",
     "bootstrap": "^5.3.2",
     "flowbite": "^2.2.0",
     "flowbite-react": "^0.6.4",
