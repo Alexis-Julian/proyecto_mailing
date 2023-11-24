@@ -1,5 +1,4 @@
 import Form from "@/components/Form";
-import { Button } from "flowbite-react";
 
 import styles from "@/app/home/form.module.css";
 export default async function HomePage() {
@@ -10,10 +9,12 @@ export default async function HomePage() {
 	return (
 		<div className={styles.container}>
 			<div className={styles.container_screenLeft}>
-				<form className={styles.form}>
-					<div className={styles.form_inputs}></div>
+				<div className={styles.form}>
+					<div className={styles.form_inputs}>
+						<Form />
+					</div>
 					<div className={styles.form_blur}></div>
-				</form>
+				</div>
 			</div>
 			<div className={styles.background}></div>
 		</div>
