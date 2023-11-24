@@ -3,7 +3,7 @@ import styles from "@/app/home/form.module.css";
 export default function HomeRoot({ children }) {
 	return (
 		<html>
-			<body className={styles.body}>
+			<body className="h-screen w-screen">
 				<link
 					rel="stylesheet"
 					href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"

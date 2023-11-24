@@ -5,7 +5,7 @@ export default function Form() {
 	return (
 		<form className="h-full ">
 			<div className="h-[10%] flex items-end justify-center  text-2xl text-black">
-				<h1>Iniciar Sesion</h1>
+				<h1 className="font-semibold border-b border-black">Hermes</h1>
 			</div>
 			<div className="flex flex-col justify-evenly gap-6 h-[45%] w-[90%] mx-auto   ">
 				<div className="relative">
@@ -25,8 +25,12 @@ export default function Form() {
 			</div>
 			<div className="h-[45%] flex flex-col justify-evenly ">
 				<div className="flex justify-around">
-					<p className="text-blue-700">Olvido su contraseña? </p>
-					<p className="text-blue-700">Desea registrarse? </p>
+					<p className="text-blue-600 cursor-pointer hover:text-blue-800">
+						Olvido su contraseña?{" "}
+					</p>
+					<p className="text-blue-600 cursor-pointer hover:text-blue-800">
+						Desea registrarse?{" "}
+					</p>
 				</div>
 				<div className="flex items-start justify-center w-[90%] mx-auto gap-3">
 					<Button

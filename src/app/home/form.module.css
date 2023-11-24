@@ -1,44 +1,11 @@
-.main {
-	flex-grow: 1;
-	width: 90%;
-	background-color: #e7e7e7;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.actions {
-	margin-top: 0.8rem;
-	display: flex;
-	gap: 0.4rem;
-}
-
-.container {
-	height: 100vh;
-	width: 100vw;
-	position: relative;
-}
-
-.background {
-	position: absolute;
-	height: 100%;
-	width: 100%;
+/* .background {
 	background-image: url("/svg/background_form.svg");
-	/* background-image: url("/svg/probando.svg"); */
 	background-size: cover;
 	transform: scaleX(-1);
-	z-index: 0;
-}
-.container_screenLeft {
-	z-index: 1;
-	width: 50%;
-	height: 100%;
 	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+	bottom: 0;
+	top: 0;
+} */
 
 .form {
 	min-width: 50%;
@@ -53,13 +20,11 @@
 	right: 0;
 	left: 0;
 	position: absolute;
-
 	backdrop-filter: blur(1em);
 	filter: blur(1px);
 	border: 1px outset white;
 	box-shadow: #0092f6 0.5px 0.5px 0.5px;
 	border-radius: 10% 1% 10% 1%;
-
 	z-index: -1;
 }
 
