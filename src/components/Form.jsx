@@ -4,8 +4,15 @@ import Image from "next/image";
 export default function Form() {
 	return (
 		<form className="h-full ">
-			<div className="h-[10%] flex items-end justify-center  text-2xl text-black">
+			<div className="h-[10%] flex items-end justify-center  text-2xl text-black relative">
 				<h1 className="font-semibold border-b border-black">Hermes</h1>
+				<Image
+					src="/svg/iconproject.svg"
+					className="h-full"
+					height={40}
+					width={40}
+					alt=""
+				/>
 			</div>
 			<div className="flex flex-col justify-evenly gap-6 h-[45%] w-[90%] mx-auto   ">
 				<div className="relative">
