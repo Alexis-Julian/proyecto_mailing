@@ -4,7 +4,6 @@ onmessage = function (event) {
 	const data = event.data;
 	console.log("Mensaje recibido en el worker:", data);
 
-	// Realiza algún trabajo en el worker
 	const longitud = data;
 
 	const frame = 100 / longitud;
