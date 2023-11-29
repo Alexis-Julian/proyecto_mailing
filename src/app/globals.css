@@ -120,7 +120,17 @@ a {
 	}
 }
 
-/* .esteprobando {
-	transform: rotateX(0deg);
+.form_blur {
+	background-color: rgba(0, 101, 170, 0.2);
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	position: absolute;
+	backdrop-filter: blur(1em);
+	filter: blur(1px);
+	border: 1px outset white;
+	box-shadow: #0092f6 0.5px 0.5px 0.5px;
+	border-radius: 10% 1% 10% 1%;
+	z-index: -1;
 }
- */

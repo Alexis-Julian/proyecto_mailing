@@ -1,6 +1,5 @@
 import Form from "@/components/Form";
 
-import styles from "@/app/home/form.module.css";
 import CarrouselLogin from "@/components/CarrouselLogin";
 export default async function HomePage() {
 	const user = {
@@ -11,11 +10,11 @@ export default async function HomePage() {
 		<>
 			<div className="h-full w-full flex">
 				<div className=" w-1/2 h-full flex items-center justify-center">
-					<div className={styles.form}>
-						<div className={styles.form_inputs}>
+					<div className={"min-w-[50%] max-w-[50%] h-[80%] relative"}>
+						<div className={"h-full w-full"}>
 							<Form />
 						</div>
-						<div className={styles.form_blur}></div>
+						<div className={"form_blur"}></div>
 					</div>
 				</div>
 				<div className=" w-1/2 h-[100%] my-auto  grid  grid-rows-2">

@@ -1,5 +1,4 @@
-import styles from "@/app/home/form.module.css";
-
+import Script from "next/script";
 export default function HomeRoot({ children }) {
 	return (
 		<html>
@@ -12,8 +11,7 @@ export default function HomeRoot({ children }) {
 					referrerPolicy="no-referrer"
 				/>
 				{children}
-				{/* <script src="node_modules/@material-tailwind/html@latest/scripts/ripple.js"></script> */}
-				<script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+				<Script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js" />
 			</body>
 		</html>
 	);
