@@ -54,18 +54,18 @@ const EmailEditor = () => {
   ];
 
   return (
-    <div>
-      <div id="toolbar">
-        <select onChange={handleFontChange} className="ql-font">
+    <div className="mx-auto max-w-2xl mt-8 p-4 bg-white rounded shadow">
+      <div className="flex items-center space-x-4 mb-4" id="toolbar">
+        <select onChange={handleFontChange} className="bg-gray-200 text-gray-700 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-300">
           <option value="Arial">Arial</option>
           <option value="Arial Black">Arial Black</option>
           <option value="Times New Roman">Times New Roman</option>
           <option value="Sans Serif">Sans Serif</option>
           <option value="Calibri">Calibri</option>
-          {/* Agrega más opciones según sea necesario */}
         </select>
-        <button onClick={handleAttachFile}>Adjuntar</button>
-        <button onClick={handleSendEmail}>Enviar</button>
+        <button onClick={handleAttachFile} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer">Adjuntar</button>
+        <button onClick={handleSendEmail} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Enviar
+        </button>
       </div>
       <ReactQuill
         theme="snow"
@@ -74,6 +74,7 @@ const EmailEditor = () => {
         value={editorHtml}
         onChange={setEditorHtml}
         placeholder="Escribe tu correo electrónico aquí..."
+        style={{ height: '400px' }} 
       />
     </div>
   );
