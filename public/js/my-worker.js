@@ -2,7 +2,6 @@
 
 onmessage = function (event) {
 	const data = event.data;
-	console.log("Mensaje recibido en el worker:", data);
 
 	const longitud = data;
 

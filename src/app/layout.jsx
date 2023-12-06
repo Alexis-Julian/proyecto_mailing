@@ -23,7 +23,7 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
 	return (
 		<html lang="es" className={poppins.className}>
-			<body>{children}</body>
+			<body className="h-screen w-screen">{children}</body>
 		</html>
 	);
 }
