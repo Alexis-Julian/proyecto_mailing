@@ -3,29 +3,30 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Estilos del editor
+import 'react-quill/dist/quill.bubble.css'; // Estilos del modo burbuja
 
 const EmailEditor = () => {
   const [editorHtml, setEditorHtml] = useState('');
-  const [attachment, setAttachment] = useState(null);
 
-  const handleAttachFile = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      alert(`Archivo adjuntado: ${file.name}`);
-      setAttachment(file);
-    }
+  const handleSendEmail = () => {
+    // Implementa la lógica para enviar el correo electrónico aquí
+    console.log(editorHtml);
   };
 
   const handleFontChange = (e) => {
     const font = e.target.value;
-    document.execCommand('fontName', false, font);
+
+    // Aplica estilos de fuente al texto seleccionado
+    const range = quillRef.getEditor().getSelection();
+    if (range) {
+      quillRef.getEditor().format('font', font);
+    }
   };
 
-  const handleSendEmail = () => {
-    // Implementar la lógica para enviar el correo electrónico aquí
-    alert('Enviando correo electrónico con adjunto...');
-  };
+  const fonts = [
+    'Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana',
+    'Helvetica', 'Tahoma', 'Trebuchet MS', 'Palatino', 'Garamond'
+  ];
 
   const modules = {
     toolbar: [
@@ -39,9 +40,7 @@ const EmailEditor = () => {
       [{ 'align': [] }],
       [{ 'script': 'sub' }, { 'script': 'super' }],
       [{ 'indent': '-1' }, { 'indent': '+1' }],
-      [{ 'font': [] }],
-      [{ 'size': ['small', false, 'large', 'huge'] }],
-      ['style', 'font', 'size'],
+      ['font', 'size', 'style'],
       [{ 'attachment': '' }], // Botón de adjuntar
       ['send'], // Botón de enviar
     ],
@@ -53,20 +52,10 @@ const EmailEditor = () => {
     'indent', 'attachment', 'style', 'size', 'send'
   ];
 
+  let quillRef;
+
   return (
-    <div className="mx-auto max-w-2xl mt-8 p-4 bg-white rounded shadow">
-      <div className="flex items-center space-x-4 mb-4" id="toolbar">
-        <select onChange={handleFontChange} className="bg-gray-200 text-gray-700 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-300">
-          <option value="Arial">Arial</option>
-          <option value="Arial Black">Arial Black</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Sans Serif">Sans Serif</option>
-          <option value="Calibri">Calibri</option>
-        </select>
-        <button onClick={handleAttachFile} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer">Adjuntar</button>
-        <button onClick={handleSendEmail} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Enviar
-        </button>
-      </div>
+    <div className="mx-auto max-w-2xl mt-8 p-4 bg-white rounded shadow ">
       <ReactQuill
         theme="snow"
         modules={modules}
@@ -74,8 +63,29 @@ const EmailEditor = () => {
         value={editorHtml}
         onChange={setEditorHtml}
         placeholder="Escribe tu correo electrónico aquí..."
-        style={{ height: '400px' }} 
+        className="bg-gray-100 p-4 rounded mb-4"
+        style={{ maxHeight: '500px' }} // Ajusta la altura según sea necesario
+        ref={(el) => (quillRef = el)}
       />
+      <div className="flex items-center space-x-4">
+        <select
+          onChange={handleFontChange}
+          className="bg-gray-200 text-gray-700 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="">Fuente por defecto</option>
+          {fonts.map((font, index) => (
+            <option key={index} value={font}>
+              {font}
+            </option>
+          ))}
+        </select>
+        <button
+          onClick={handleSendEmail}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Enviar Correo
+        </button>
+      </div>
     </div>
   );
 };
