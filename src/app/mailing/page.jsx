@@ -1,12 +1,13 @@
-import Editor from "../../components/editor";
+"use client"
+import TinyMCE from '../../components/TinyEditor';
 
 const HomePage = () => {
 	return (
-		<div className="h-full w-full relative">
-			<h1>Hermes espera a enviar su mensaje</h1>
-			<Editor />
-		</div>
-	);
+		<div>
+      <h1>Hermes Espera su mensaje</h1>
+      <TinyMCE />
+    </div>
+  );
 };
 
 export default HomePage;
