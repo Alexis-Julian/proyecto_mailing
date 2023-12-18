@@ -24,6 +24,12 @@ const TextEditor = () => {
     });
   };
 
+  // Función para manejar el envío del contenido del editor
+  const hermesMailing = () => {
+  const content = tinymce.activeEditor.getContent();
+  setEditorContent(content);
+  console.log("Contenido a enviar:", content);
+}
   useEffect(() => {
     // Inicializa TinyMCE cuando el componente se monta
     initTinyMCE();
@@ -54,7 +60,7 @@ const TextEditor = () => {
           file_picker_callback: "handleFileUpload",
         }}
       />
-      <button>Enviar</button>
+      <button onClick={hermesMailing}>Enviar</button>
     </div>
   );
 };
