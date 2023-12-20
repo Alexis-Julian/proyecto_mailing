@@ -2,10 +2,6 @@ import Form from "@/components/Form";
 
 import CarrouselLogin from "@/components/CarrouselLogin";
 export default async function HomePage() {
-	const user = {
-		name: "Pepole",
-	};
-
 	return (
 		<>
 			<div className="h-full w-full flex">

@@ -1,6 +1,6 @@
 import { Poppins } from "next/font/google";
 import { Roboto } from "next/font/google";
-
+import "../config/firebase-config";
 import "./globals.css";
 
 export const metadata = {
