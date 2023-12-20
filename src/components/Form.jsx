@@ -23,8 +23,6 @@ export default function Form() {
 		formState: { errors },
 	} = useForm();
 
-	// window.localStorage.getItem("auth") === "true"
-
 	useEffect(() => {
 		if (token) {
 		}
