@@ -84,7 +84,8 @@ const TABLE_ROWS = [
     };
   
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+      
+      <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-blue-500 to-white">
         <Card className="w-full max-w-screen-md ">
           <CardHeader
             floated={false}
@@ -269,7 +270,7 @@ const TABLE_ROWS = [
     }, []);
   
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-white to-blue-500">
         <Editor
           initialValue="<p>Escribe tu contenido aquí.</p>"
           init={{
@@ -300,5 +301,5 @@ const TABLE_ROWS = [
     );
   };
 
-  
   export default TextEditor;
+ 
