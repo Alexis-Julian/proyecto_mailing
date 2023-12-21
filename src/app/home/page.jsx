@@ -1,6 +1,7 @@
 import Form from "@/components/Form";
 
 import CarrouselLogin from "@/components/CarrouselLogin";
+
 export default async function HomePage() {
 	return (
 		<>
