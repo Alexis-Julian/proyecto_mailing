@@ -78,7 +78,9 @@ export default function Register() {
     }
   };
   return (
-    <form className="mx-auto max-w-md mt-60" onSubmit={validarFormulario}>
+    <div className="bg-gradient-to-b from-blue-500 to-white">
+
+    <form className="mx-auto max-w-md mt-60"  onSubmit={validarFormulario}>
       <div className="grid gap-6 mb-6 md:grid-cols-2 mx-auto max-w-md">
         <div>
           <label
@@ -194,15 +196,16 @@ export default function Register() {
         </label>
       </div>
       <button
-      onClick={sessionRegister}
+      onClick={validarFormulario}
         type="submit"
         className="mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
+      > 
         Registrarse
       </button>
       <button className="mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Volver al Login
       </button>
     </form>
+    </div>
   );
 }
