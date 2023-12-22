@@ -11,7 +11,6 @@ const validationToken = async (token) => {
 		});
 
 		const data = await response.json();
-
 		if (data.uid) {
 			return data;
 		} else {
@@ -28,9 +27,9 @@ export default async function middleware(request) {
 		request.nextUrl.pathname.includes("/home") ||
 		request.nextUrl.pathname.includes("/register")
 	) {
-		console.log(cookieToken);
 		if (cookieToken) {
 			const response = await validationToken(cookieToken.value);
+
 			if (response) {
 				return NextResponse.redirect(new URL("/mailing", request.url));
 			}
@@ -42,8 +41,9 @@ export default async function middleware(request) {
 	if (request.nextUrl.pathname.includes("/mailing")) {
 		const cookieToken = cookies().get("accessToken");
 
-		if (!cookieToken)
-			return NextResponse.redirect(new URL("/home", request.url));
+		const response = await validationToken(cookieToken.value);
+
+		if (!response) return NextResponse.redirect(new URL("/home", request.url));
 
 		return NextResponse.next();
 	}

@@ -7,7 +7,7 @@ import { Button } from "@material-tailwind/react";
 import { IconButton } from "@material-tailwind/react";
 
 export default function TinyEditor() {
-	const initTinyMCE = () => {
+	/* const initTinyMCE = () => {
 		import("tinymce/tinymce.min").then(() => {
 			tinymce.init({
 				selector: "textarea",
@@ -24,7 +24,7 @@ export default function TinyEditor() {
 				file_picker_types: "image",
 			});
 		});
-	};
+	}; */
 
 	const hermesMailing = () => {
 		const content = tinymce.activeEditor.getContent();
@@ -32,13 +32,13 @@ export default function TinyEditor() {
 		console.log("Contenido a enviar:", content);
 	};
 
-	useEffect(() => {
+	/* useEffect(() => {
 		initTinyMCE();
 
 		return () => {
 			tinymce.remove();
 		};
-	}, []);
+	}, []); */
 
 	const [isContactOpen, setIsContactOpen] = useState(true);
 
@@ -48,7 +48,19 @@ export default function TinyEditor() {
 
 	return (
 		<>
-			<div className="h-full w-[100%]  ">
+			<div className="h-full w-full relative ">
+				<IconButton
+					className="rounded-full absolute left-0 z-10"
+					onClick={HandleToggleContacts}
+				>
+					<i
+						className={
+							isContactOpen
+								? "fa-solid fa-arrow-left transition-all "
+								: "fa-solid fa-arrow-left rotate-180 transition-all"
+						}
+					></i>
+				</IconButton>
 				<div
 					className={
 						isContactOpen
@@ -56,7 +68,7 @@ export default function TinyEditor() {
 							: "h-full scale-x-[75%] origin-left p-1 transition-all "
 					}
 				>
-					<Editor
+					{/* <Editor
 						initialValue="<p>Escribe tu contenido aquí.</p>"
 						init={{
 							height: 500,
@@ -73,21 +85,11 @@ export default function TinyEditor() {
 							file_picker_types: "image",
 							file_picker_callback: "handleFileUpload",
 						}}
-					/>
+					/> */}
 
-					<Button size="sm" color="blue" className="hover:shadow-md">
+					{/* <Button size="sm" color="blue" className="hover:shadow-md">
 						Enviar
-					</Button>
-
-					<IconButton className="rounded-full" onClick={HandleToggleContacts}>
-						<i
-							className={
-								isContactOpen
-									? "fa-solid fa-arrow-left transition-all "
-									: "fa-solid fa-arrow-left rotate-180 transition-all"
-							}
-						></i>
-					</IconButton>
+					</Button> */}
 				</div>
 			</div>
 			<Contacts isContactOpen={isContactOpen} />

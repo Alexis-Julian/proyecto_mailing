@@ -5,10 +5,11 @@ import TinyEditor from "../../components/TinyEditor";
 
 const HomePage = () => {
 	return (
-		<div className="h-full w-full overflow-hidden  bg-gradient-to-b from-blue-500 to-white">
+		<div className="h-full w-full overflow-hidden  bg-black">
 			<TinyEditor />
 		</div>
 	);
 };
 
 export default HomePage;
+/*  bg-gradient-to-b from-blue-500 to-white */
