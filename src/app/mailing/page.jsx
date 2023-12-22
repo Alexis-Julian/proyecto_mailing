@@ -1,15 +1,14 @@
-"use client"
-import TinyMCE, { MembersTable } from '../../components/TinyEditor';
+"use client";
+import Contacts from "@/components/Contacts";
+import TinyMCE, { MembersTable } from "../../components/TinyEditor";
+import TinyEditor from "../../components/TinyEditor";
 
 const HomePage = () => {
 	return (
-		<div>
-      <h1>Hermes Espera su mensaje</h1>
-      <MembersTable/>
-      <TinyMCE />
-    </div>
-  );
+		<div className="h-full w-full overflow-hidden  bg-gradient-to-b from-blue-500 to-white">
+			<TinyEditor />
+		</div>
+	);
 };
 
 export default HomePage;
-
