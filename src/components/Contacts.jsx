@@ -6,10 +6,8 @@ import {
 	Card,
 	CardHeader,
 	Input,
-	Typography,
 	Button,
 	CardBody,
-	CardFooter,
 	Avatar,
 	IconButton,
 	Tooltip,
@@ -91,12 +89,14 @@ export default function Contacts({ isContactOpen }) {
 					shadow={false}
 					className="rounded-none bg-white dark:bg-blue-gray-900"
 				>
-					<div className="mb-8 flex flex-col  gap-8">
-						<div>
-							<p>Destinatarios</p>
-							<p>Vea la información de todos los miembros</p>
+					<div className="mb-8 flex flex-col    gap-8">
+						<div className="flex flex-col gap-3 text-center">
+							<p className="text-lg">Destinatarios</p>
+							<p className="text-sm">
+								Vea la información de todos los miembros
+							</p>
 						</div>
-						<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+						<div className="flex shrink-0 flex-col gap-2 justify-center sm:flex-row ">
 							<Button
 								className="flex items-center gap-3 font-poppins"
 								size="sm"
@@ -107,7 +107,7 @@ export default function Contacts({ isContactOpen }) {
 							</Button>
 						</div>
 					</div>
-					<div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+					<div className="flex flex-col items-center justify-center  gap-4 md:flex-row">
 						<div className="w-full md:w-72">
 							<Input
 								label="Search"
@@ -150,48 +150,10 @@ export default function Contacts({ isContactOpen }) {
 									</tr>
 								);
 							})}
-							{/* {TABLE_ROWS.map(({ name, email, status }, index) => {
-								const isLast = index === TABLE_ROWS.length - 1;
-								const classes = isLast
-									? "p-4"
-									: "p-4 border-b border-blue-gray-50";
-
-								return (
-									<tr key={name}>
-										<td className={classes}>
-											<div className="flex items-center gap-3">
-												<div className="flex flex-col">
-													<Typography
-														variant="h5"
-														color="black"
-														className="font-poppins"
-													>
-														{name}
-													</Typography>
-													<Typography
-														variant="h6"
-														color="blue-gray"
-														className="font-poppins opacity-70"
-													>
-														{email}
-													</Typography>
-												</div>
-											</div>
-										</td>
-										<td className={classes}>
-											<Tooltip content="Edit User">
-												<IconButton variant="text">
-													<PencilIcon className="h-4 w-4" />
-												</IconButton>
-											</Tooltip>
-										</td>
-									</tr>
-								);
-							})} */}
 						</tbody>
 					</table>
 				</CardBody>
-				<CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4"></CardFooter>
+				{/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4"></CardFooter> */}
 			</Card>
 		</div>
 	);

@@ -40,12 +40,17 @@ export default async function middleware(request) {
 
 	if (request.nextUrl.pathname.includes("/mailing")) {
 		const cookieToken = cookies().get("accessToken");
+		console.log(cookieToken);
+		try {
+			const response = await validationToken(cookieToken.value);
 
-		const response = await validationToken(cookieToken.value);
+			if (!response)
+				return NextResponse.redirect(new URL("/home", request.url));
 
-		if (!response) return NextResponse.redirect(new URL("/home", request.url));
-
-		return NextResponse.next();
+			return NextResponse.next();
+		} catch (err) {
+			return NextResponse.redirect(new URL("/home", request.url));
+		}
 	}
 }
 

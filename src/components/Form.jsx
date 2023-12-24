@@ -3,21 +3,24 @@ import { Button, Input, Checkbox } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Cookies from "js-cookie";
-
+import { test } from "@/app/mailing/utils";
 import {
 	signInWithPopup,
 	GoogleAuthProvider,
 	onAuthStateChanged,
 	GithubAuthProvider,
 	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
-import { auth as Auth } from "@/config/firebase-config";
+import { auth as Auth, app, db } from "@/config/firebase-config";
 import { useEffect, useState } from "react";
 
 export default function Form() {
 	const [token, setToken] = useState("");
-
+	const router = useRouter();
+	console.log(router);
 	const {
 		register,
 		handleSubmit,
@@ -32,6 +35,7 @@ export default function Form() {
 
 	useEffect(() => {
 		onAuthStateChanged(Auth, (usercred) => {
+			console.log("SE EJECUTOOO PAAA");
 			if (usercred) {
 				usercred.getIdToken().then((tok) => {
 					setToken(tok);
@@ -40,9 +44,26 @@ export default function Form() {
 		});
 	}, []);
 
+	const email = "proband12o@gmail.com";
+	const password = "probando12";
+
+	/* useEffect(() => {
+		registerWithTest();
+	}, []); */
+
+	/* const registerWithTest = async () => {
+		const result = await createUserWithEmailAndPassword(Auth, email, password);
+
+		const idUser = result.uid;
+
+		console.log(result);
+	}; */
+
 	const loginWithGoogle = () => {
 		signInWithPopup(Auth, new GoogleAuthProvider())
-			.then((usercred) => {})
+			.then((usercred) => {
+				router.push("/mailing");
+			})
 			.catch((err) => {
 				console.log(err);
 			});
@@ -50,7 +71,9 @@ export default function Form() {
 
 	const loginWithGitHub = () => {
 		signInWithPopup(Auth, new GithubAuthProvider())
-			.then((usercred) => {})
+			.then((usercred) => {
+				router.push("/mailing");
+			})
 			.catch((err) => {
 				console.log(err);
 			});
@@ -58,7 +81,9 @@ export default function Form() {
 
 	const loginWithHermes = async ({ email, password }) => {
 		signInWithEmailAndPassword(Auth, email, password)
-			.then((usercred) => {})
+			.then((usercred) => {
+				router.push("/mailing");
+			})
 			.catch((err) => {
 				console.log(err);
 			});

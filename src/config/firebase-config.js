@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 export const firebaseConfig = {
 	apiKey: "AIzaSyDyE3UD3QxNFP2xnuZJEChlzAaRoz87om4",
@@ -16,3 +17,5 @@ export const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+
+export const db = getFirestore();
