@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 export default function Form() {
 	const [token, setToken] = useState("");
 	const router = useRouter();
-	console.log(router);
+
 	const {
 		register,
 		handleSubmit,

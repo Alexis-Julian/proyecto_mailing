@@ -2,19 +2,74 @@
 import Image from "next/image";
 import { Input, Button } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
+import PopoverWithDescription from "./PopoverWithDescription";
 export default function FormLogin() {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+
+	const registerWithHermes = (probando) => {
+		console.log(probando);
+	};
 	return (
-		<form className="grid p-2 gap-1 bg-white h-full rounded-lg w-[80%]  ">
+		<form
+			onSubmit={handleSubmit(registerWithHermes)}
+			className="grid p-2 gap-1 bg-white h-full rounded-lg w-[80%]  "
+		>
 			<h1 className=" font-semibold text-2xl flex items-center justify-center ">
 				Sing up Hermes
 			</h1>
 
 			{/* Nombre y apellido */}
 			<div className="flex flex-col justify-center gap-7 w-[90%] mx-auto">
-				<Input variant="standard" label="Nombre" color="black" />
-				<Input variant="standard" label="Apellido" />
+				<Input
+					{...register("name", {
+						required: {
+							value: true,
+							message: "El nombre no puede estar vacio",
+						},
+					})}
+					variant="standard"
+					label="Nombre"
+					color="black"
+					icon={
+						errors.name && (
+							<PopoverWithDescription
+								icon={
+									<i class="fa-solid fa-circle-exclamation text-red-400"></i>
+								}
+								message={errors.name.message}
+							/>
+						)
+					}
+				/>
+
+				<Input
+					{...register("lastname", {
+						required: {
+							value: true,
+							message: "El apellido no puede estar vacio",
+						},
+					})}
+					color="black"
+					variant="standard"
+					label="Apellido"
+					icon={
+						errors.lastname && (
+							<PopoverWithDescription
+								icon={
+									<i class="fa-solid fa-circle-exclamation text-red-400"></i>
+								}
+								message={errors.lastname.message}
+							/>
+						)
+					}
+				/>
 				{/* Email */}
 				<Input
+					{...register("email")}
 					label="Correo Electronico"
 					icon={<i className="fa-solid fa-envelope"></i>}
 					color="black"
@@ -22,12 +77,14 @@ export default function FormLogin() {
 				/>
 				{/* Password y confirmacion de contraseña */}
 				<Input
+					{...register("password")}
 					label="Contraseña"
 					color="black"
 					icon={<i className="fa-regular fa-eye"></i>}
 					variant="standard"
 				/>
 				<Input
+					{...register("repeatpassword")}
 					label="Confirmar contraseña"
 					color="black"
 					icon={<i className="fa-regular fa-eye-slash"></i>}
@@ -67,7 +124,7 @@ export default function FormLogin() {
 			</div>
 
 			<div className="flex items-center justify-center">
-				<Button color="blue" className="w-full">
+				<Button color="blue" className="w-full" type="submit">
 					Registrase
 				</Button>
 			</div>
