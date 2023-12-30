@@ -13,14 +13,13 @@ import {
 	createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
-
+import { ENDPOINT } from "@/shares/constants";
 import { auth as Auth, app, db } from "@/config/firebase-config";
 import { useEffect, useState } from "react";
 
-export default function Form() {
+export default function Form({ probando }) {
 	const [token, setToken] = useState("");
 	const router = useRouter();
-
 	const {
 		register,
 		handleSubmit,
@@ -30,10 +29,17 @@ export default function Form() {
 	useEffect(() => {
 		if (token) {
 			Cookies.set("accessToken", token, { expires: 1, path: "/" });
+			router.push("/mailing");
 		}
-	}, [token]);
+	}, [router, token]);
 
 	useEffect(() => {
+		if (Cookies.get("accessToken")) {
+			router.push("/mailing");
+		}
+	}, [router]);
+
+	/* 	useEffect(() => {
 		onAuthStateChanged(Auth, (usercred) => {
 			console.log("SE EJECUTOOO PAAA");
 			if (usercred) {
@@ -42,22 +48,7 @@ export default function Form() {
 				});
 			}
 		});
-	}, []);
-
-	const email = "proband12o@gmail.com";
-	const password = "probando12";
-
-	/* useEffect(() => {
-		registerWithTest();
 	}, []); */
-
-	/* const registerWithTest = async () => {
-		const result = await createUserWithEmailAndPassword(Auth, email, password);
-
-		const idUser = result.uid;
-
-		console.log(result);
-	}; */
 
 	const loginWithGoogle = () => {
 		signInWithPopup(Auth, new GoogleAuthProvider())
@@ -79,14 +70,20 @@ export default function Form() {
 			});
 	};
 
-	const loginWithHermes = async ({ email, password }) => {
-		signInWithEmailAndPassword(Auth, email, password)
-			.then((usercred) => {
-				router.push("/mailing");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+	const loginWithHermes = async (body) => {
+		const response = await fetch(ENDPOINT + "api/auth/login", {
+			headers: { "Content-Type": "application/json" },
+			method: "POST",
+			body: JSON.stringify(body),
+		});
+
+		const result = await response.json();
+		console.log(result);
+		if (result.statusCode == 200) {
+			setToken(result.data);
+
+			router.push("/mailing");
+		}
 	};
 
 	return (

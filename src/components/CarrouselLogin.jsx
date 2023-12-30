@@ -52,10 +52,6 @@ export default function CarrouselLogin() {
 		},
 	];
 
-	const test = () => {
-		console.log("pORNBADO");
-	};
-
 	const [rotate, setRotate] = useState("0");
 
 	const CreateCarrousel = () => {
@@ -65,9 +61,10 @@ export default function CarrouselLogin() {
 		return (
 			<div
 				className={
-					rotate
-						? `w-full transition-all  duration-1000 flex flex-col flex-nowrap  translate-y-[-${rotate}%] h-[${totalH}%]`
-						: null
+					"w-full transition-all  duration-1000 flex flex-col flex-nowrap  "
+				}
+				style={
+					({ height: `${totalH}%` }, { transform: `translateY(-${rotate}%)` })
 				}
 			>
 				{feedbacks.map((feedback, index) => {

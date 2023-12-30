@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-
+import { ENDPOINT } from "./shares/constants";
 const validationToken = async (token) => {
 	try {
-		const response = await fetch("http://localhost:8080/api/auth/token", {
+		const response = await fetch(ENDPOINT + "api/auth/token", {
 			headers: {
 				Authorization: "Bearer " + token,
 			},
@@ -11,13 +11,14 @@ const validationToken = async (token) => {
 		});
 
 		const data = await response.json();
-		if (data.uid) {
-			return data;
+
+		if (data.statusCode === 202) {
+			return true;
 		} else {
 			return false;
 		}
 	} catch (e) {
-		console.log("EL SERVIDOR NO ANDA");
+		console.log("Syntax error ");
 	}
 };
 
@@ -29,7 +30,7 @@ export default async function middleware(request) {
 	) {
 		if (cookieToken) {
 			const response = await validationToken(cookieToken.value);
-
+			console.log(response);
 			if (response) {
 				return NextResponse.redirect(new URL("/mailing", request.url));
 			}
