@@ -161,12 +161,12 @@ export default function Form({ probando }) {
 						Desea registrarse?{" "}
 					</p>
 				</div>
-				<div className="flex items-start justify-center w-[90%] mx-auto gap-3">
+				<div className="flex flex-col items-center justify-center gap-3">
 					<Button
 						size="lg"
 						variant="gradient"
 						color="gray"
-						className="group relative flex items-center gap-3 overflow-hidden pr-[72px]"
+						className="group relative text-xs justify-center w-full flex items-center gap-3 overflow-hidden pl-2 pr-[50px] max-w-[300px]"
 						onClick={loginWithGitHub}
 					>
 						Inicie sesion con GitHub
@@ -183,7 +183,7 @@ export default function Form({ probando }) {
 						size="lg"
 						variant="gradient"
 						color="white"
-						className="group relative flex items-center gap-3 overflow-hidden pr-[72px]"
+						className="group relative text-xs justify-center w-full flex items-center gap-3 overflow-hidden pl-2 pr-[50px] max-w-[300px]"
 						onClick={loginWithGoogle}
 					>
 						Inicie sesion con Google
@@ -197,7 +197,7 @@ export default function Form({ probando }) {
 						</span>
 					</Button>
 				</div>
-				<div className="w-[90%] mx-auto">
+				<div className="w-full max-w-[300px] mx-auto">
 					<Button
 						variant="gradient"
 						className="rounded-full w-full"

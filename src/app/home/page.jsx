@@ -8,7 +8,7 @@ export default async function HomePage() {
 			<div className="h-full w-full flex">
 				<div className=" w-1/2 h-full flex items-center justify-center">
 					<div className={"min-w-[50%] max-w-[50%] h-[80%] relative"}>
-						<div className={"h-full w-full"}>
+						<div className={"h-full w-full p-4"}>
 							<Form />
 						</div>
 						<div className={"form_blur"}></div>

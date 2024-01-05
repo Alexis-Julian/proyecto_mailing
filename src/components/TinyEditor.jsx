@@ -12,34 +12,39 @@ import { signOut } from "firebase/auth";
 import { IconButton } from "@material-tailwind/react";
 import { tinyMCEconfig } from "@/config/tinymce-config";
 import CustomSpinner from "./CustomSpinner";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+
 
 export default function TinyEditor() {
-  const [isContactOpen, setIsContactOpen] = useState(true);
-  const [Loading, setLoading] = useState(false);
-
-  const initTinyMCE = () => {
-    import("tinymce/tinymce.min").then((res) => {
-      tinymce.init(tinyMCEconfig);
-    });
-  };
-
-  useEffect(() => {
-    initTinyMCE();
-    return () => {
-      tinymce.remove();
-    };
-  }, []);
-
-  const HandleToggleContacts = () => {
-    setIsContactOpen(!isContactOpen);
-  };
-
-  const HandleSignOut = () => {
-    signOut(Auth)
-      .then((res) => {
-        Cookies.remove("accessToken");
-        location.reload();
-      })
+	const [isContactOpen, setIsContactOpen] = useState(true);
+	const [Loading, setLoading] = useState(false);
+	
+	
+	
+	
+	const initTinyMCE = () => {
+		import("tinymce/tinymce.min").then((res) => {
+			tinymce.init(tinyMCEconfig);
+		});
+	};
+	
+	useEffect(() => {
+		initTinyMCE();
+		return () => {
+			tinymce.remove();
+		};
+	}, []);
+	
+	const HandleToggleContacts = () => {
+		setIsContactOpen(!isContactOpen);
+	};
+	
+	const HandleSignOut = () => {
+		signOut(Auth)
+		.then((res) => {
+			Cookies.remove("accessToken");
+			location.reload();
+		})
       .catch((err) => {
         console.log("Hubo un error paaa");
       });
@@ -72,10 +77,10 @@ export default function TinyEditor() {
 
   return (
     <>
-      <div className="h-full w-full relative ">
-        <div className="absolute z-10 flex space-x-2">
-          <Button className="rounded-full p-2 bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700 transition-all" onClick={HandleToggleContacts}>
-		  <span className=" mr-2 hidden sm:inline">Destinatarios</span>
+      <div className={`h-full ${!isContactOpen ? "w-[85%]" : "w-full"} relative duration-150`}>
+        <div className="absolute z-10 top-4 left-4 flex gap-3">
+          <Button color="blue" className="flex gap-2 items-center rounded-md text-white px-4 py-2" onClick={HandleToggleContacts}>
+		        <span className="hidden sm:inline">Destinatarios</span>
             <i
               className={
                 isContactOpen
@@ -84,10 +89,9 @@ export default function TinyEditor() {
               }
             ></i>
           </Button>
-
-          <Button className="rounded-full p-2 bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring focus:border-red-700 transition-all" onClick={HandleSignOut}>
-		  <span className="hidden sm:inline">Logout</span>
-            <i className="fa-solid fa-circle-xmark"></i>
+          <Button color="red" className="flex gap-2 items-center rounded-md text-white px-4 py-2" onClick={HandleSignOut}>
+		        <span className="hidden sm:inline">Logout</span>
+            <XMarkIcon className="h-4 w-4" />
           </Button>
         </div>
         <div
@@ -125,10 +129,10 @@ export default function TinyEditor() {
               )}
 
               <Button
-                className=" flex items-center mx-auto my-auto mt-4 rounded-md bg-blue-500 text-white px-4 py-2"
+                color="blue"
+                className="flex items-center mx-auto my-auto mt-4 rounded-md text-white px-4 py-2"
                 onClick={handleSubmit}
               >
-                {" "}
                 Enviar
               </Button>
             </div>

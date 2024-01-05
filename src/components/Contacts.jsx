@@ -1,37 +1,23 @@
-"use client";
-import React, { useState } from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import {
-	Card,
-	CardHeader,
-	Input,
-	Button,
-	CardBody,
-	Avatar,
-	IconButton,
-	Tooltip,
-} from "@material-tailwind/react";
+ "use client";
+ import React, { useState } from "react";
+ import { MagnifyingGlassIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+ import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+ import {
+ 	Card,
+ 	CardHeader,
+ 	Input,
+ 	Button,
+ 	CardBody,
+ 	Avatar,
+ 	IconButton,
+ 	Tooltip,
+ } from "@material-tailwind/react";
 
-export default function Contacts({ isContactOpen }) {
-	const TABS = [
-		{
-			label: "All",
-			value: "all",
-		},
-		{
-			label: "Monitored",
-			value: "monitored",
-		},
-		{
-			label: "Unmonitored",
-			value: "unmonitored",
-		},
-	];
-
-	const TABLE_HEAD = ["Email", "Editar"];
-
-	const TABLE_ROWS = [
+export default function ContactsList({ isContactOpen }) {
+	const [activeIndex, setActiveIndex] = useState();
+	const [textInput, setTextInput] = useState();
+	const [error, setError] = useState();
+	const [TABLE_ROWS, SET_TABLE_ROWS] = useState([
 		{
 			img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
 			name: "John Michael",
@@ -67,23 +53,68 @@ export default function Contacts({ isContactOpen }) {
 			online: false,
 			date: "04/10/21",
 		},
+	]);
+	const TABS = [
+		{
+			label: "All",
+			value: "all",
+		},
+		{
+			label: "Monitored",
+			value: "monitored",
+		},
+		{
+			label: "Unmonitored",
+			value: "unmonitored",
+		},
 	];
 
-	const [isTableOpen, setIsTableOpen] = useState(true);
+	const TABLE_HEAD = ["Email", "Editar"];
 
+	const [isTableOpen, setIsTableOpen] = useState(true);
+	
+	
 	const handleToggleTable = () => {
 		setIsTableOpen(!isTableOpen);
 	};
+
+	const handleEditButton = (index, email) => {
+		setActiveIndex(index);
+		setTextInput(email);
+	};
+
+	const handleConfirm = (originalEmail) => {
+		if(textInput === originalEmail){
+			return handleCancel()
+		}
+		if(!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(textInput)){
+			return setError("The email address is invalid");
+		}
+		//Caso correcto
+		SET_TABLE_ROWS(
+			TABLE_ROWS.map((row, rowIndex) => rowIndex === activeIndex 
+				? {...row, email: textInput}
+				: row
+			)
+		)
+		handleCancel()
+	}
+
+	const handleCancel = () => {
+		setError()
+		setTextInput()
+		setActiveIndex()
+	}
 
 	return (
 		<div
 			className={
 				isContactOpen
-					? " h-full w-[20%]  right-0 bottom-0 absolute top-0 overflow-hidden translate-x-[100%] transition-all"
-					: " h-full w-[20%]  right-0 bottom-0 absolute top-0 overflow-hidden translate-x-[0%] transition-all"
+					? "h-full right-0 bottom-0 absolute top-0 translate-x-[100%] transition-all"
+					: "h-full right-0 bottom-0 absolute top-0 translate-x-[0%] transition-all"
 			}
 		>
-			<Card className="w-full h-full  text-xs">
+			<Card className="w-full h-full text-xs rounded-none">
 				<CardHeader
 					floated={false}
 					shadow={false}
@@ -117,7 +148,7 @@ export default function Contacts({ isContactOpen }) {
 					</div>
 				</CardHeader>
 				<CardBody className="px-0 mt-4">
-					<table className="w-full min-w-max table-auto  ">
+					<table className="w-full min-w-max table-auto">
 						<thead className="w-full">
 							<tr className="grid grid-row-1 grid-cols-2">
 								{TABLE_HEAD.map((head) => (
@@ -137,15 +168,35 @@ export default function Contacts({ isContactOpen }) {
 										key={name}
 										className="w-full grid grid-rows-1 grid-cols-2 py-4 px-1 border-b border-gray-400"
 									>
-										<td className="flex items-center justify-center">
-											{email}
+										<td className="flex flex-col items-center justify-center">
+											{ index === activeIndex ? <Input type="text" onChange={(e) => setTextInput(e.currentTarget.value)} value={textInput}/> : email }
+											{ error && index === activeIndex ? <p>{error}</p> : null }
 										</td>
 										<td className="text-center">
-											<Tooltip content="Edit User">
-												<IconButton variant="text">
-													<PencilIcon className="h-4 w-4" />
-												</IconButton>
-											</Tooltip>
+												{
+													index === activeIndex 
+														? (
+														<>
+															<Tooltip content="Confirm">
+																<IconButton color="blue" onClick={()=>handleConfirm(email)} variant="text">
+																	<CheckIcon size="xl" className="h-6 w-6" />
+																</IconButton>
+															</Tooltip>
+															<Tooltip content="Cancel">
+																<IconButton color="red" onClick={()=>handleCancel()} variant="text">
+																	<XMarkIcon size="xl" className="h-6 w-6" />
+																</IconButton>
+															</Tooltip>
+														</>
+													)
+														: (
+															<Tooltip content="Edit User">
+																<IconButton onClick={()=>handleEditButton(index, email)} variant="text">
+																	<PencilIcon className="h-4 w-4" />
+																</IconButton>
+															</Tooltip>
+														)
+												}
 										</td>
 									</tr>
 								);
