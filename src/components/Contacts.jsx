@@ -16,6 +16,7 @@
 export default function ContactsList({ isContactOpen }) {
 	const [activeIndex, setActiveIndex] = useState();
 	const [textInput, setTextInput] = useState();
+	const [newRecipient, setNewRecipient] = useState(""); 
 	const [error, setError] = useState();
 	const [TABLE_ROWS, SET_TABLE_ROWS] = useState([
 		{
@@ -77,7 +78,33 @@ export default function ContactsList({ isContactOpen }) {
 	const handleToggleTable = () => {
 		setIsTableOpen(!isTableOpen);
 	};
+	const handleNewRecipientChange = (e) => {
+		setNewRecipient(e.currentTarget.value);
+	  };
+	  
+  // Nueva función para agregar destinatarios
+  const handleAddButton = () => {
+    // Aquí puedes realizar alguna lógica de validación si es necesario
+    if (!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(newRecipient)) {
+      return setError("La dirección de correo electrónico no es válida");
+    }
 
+    // Agregar el nuevo destinatario a la lista
+    SET_TABLE_ROWS([
+      ...TABLE_ROWS,
+      {
+        img: "URL_DE_LA_IMAGEN",
+        name: "Nuevo Destinatario",
+        email: newRecipient,
+        online: true, // o false según tu lógica
+        date: "Fecha Actual",
+      },
+    ]);
+
+    // Limpiar el estado y errores
+    setNewRecipient("");
+    setError("");
+  };
 	const handleEditButton = (index, email) => {
 		setActiveIndex(index);
 		setTextInput(email);
@@ -127,16 +154,23 @@ export default function ContactsList({ isContactOpen }) {
 								Vea la información de todos los miembros
 							</p>
 						</div>
-						<div className="flex shrink-0 flex-col gap-2 justify-center sm:flex-row ">
-							<Button
-								className="flex items-center gap-3 font-poppins"
-								size="sm"
-								color="blue"
-							>
-								<UserPlusIcon strokeWidth={2} className="h-4 w-4 " /> Añadir
-								nuevo destinatario
-							</Button>
-						</div>
+						<div className="w-full md:w-72">
+						<Input
+  label="Nuevo Destinatario"
+  className="w-full py-2 md:py-4"
+  onChange={handleNewRecipientChange}
+  value={newRecipient}
+/>
+<Button
+  className="mt-2 w-full"
+  size="sm"
+  color="green"
+  onClick={handleAddButton}
+>
+  <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Añadir
+</Button>
+{error && <p className="text-red-500 mt-2">{error}</p>}
+          </div>
 					</div>
 					<div className="flex flex-col items-center justify-center  gap-4 md:flex-row">
 						<div className="w-full md:w-72">
