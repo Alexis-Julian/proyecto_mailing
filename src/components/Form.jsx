@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import { test } from "@/app/mailing/utils";
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
+import 'alertifyjs/build/css/themes/default.css';
 import {
 	signInWithPopup,
 	GoogleAuthProvider,
@@ -72,19 +75,46 @@ export default function Form({ probando }) {
 
 	const loginWithHermes = async (body) => {
 		const response = await fetch(ENDPOINT + "api/auth/login", {
-			headers: { "Content-Type": "application/json" },
-			method: "POST",
-			body: JSON.stringify(body),
+		  headers: { "Content-Type": "application/json" },
+		  method: "POST",
+		  body: JSON.stringify(body),
 		});
-
+	  
 		const result = await response.json();
 		console.log(result);
-		if (result.statusCode == 200) {
-			setToken(result.data);
-
-			router.push("/mailing");
+	  
+		if (result.statusCode === 200) {
+		  setToken(result.data);
+		  router.push("/mailing");
+		} else {
+		  // Muestra alerta en caso de error
+		  if (typeof window !== 'undefined') {
+			if (result.errorField === 'email') {
+			  alertify.error('Correo incorrecto. Verifique su correo electrónico.');
+			} else if (result.errorField === 'password') {
+			  alertify.error('Contraseña incorrecta. Verifique su contraseña.');
+			} else {
+			  alertify.error('Credenciales incorrectas. Verifique su correo y contraseña.');
+			}
+		  }
 		}
-	};
+	  };
+
+	// const loginWithHermes = async (body) => {
+	// 	const response = await fetch(ENDPOINT + "api/auth/login", {
+	// 		headers: { "Content-Type": "application/json" },
+	// 		method: "POST",
+	// 		body: JSON.stringify(body),
+	// 	});
+
+	// 	const result = await response.json();
+	// 	console.log(result);
+	// 	if (result.statusCode == 200) {
+	// 		setToken(result.data);
+
+	// 		router.push("/mailing");
+	// 	}
+	// };
 
 	return (
 		<form className="h-full" onSubmit={handleSubmit(loginWithHermes)}>
