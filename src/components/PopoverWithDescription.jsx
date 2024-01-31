@@ -11,6 +11,7 @@ import {
 
 export default function PopoverWithDescription({ icon, message }) {
 	const [openPopover, setOpenPopover] = React.useState(false);
+
 	const triggers = {
 		onMouseEnter: () => setOpenPopover(true),
 		onMouseLeave: () => setOpenPopover(false),

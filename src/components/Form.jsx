@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import { test } from "@/app/mailing/utils";
-import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.css';
-import 'alertifyjs/build/css/themes/default.css';
+// import alertify from "alertifyjs";
+// import "alertifyjs/build/css/alertify.css";
+// import "alertifyjs/build/css/themes/default.css";
 import {
 	signInWithPopup,
 	GoogleAuthProvider,
@@ -53,7 +53,7 @@ export default function Form({ probando }) {
 		});
 	}, []); */
 
-	const loginWithGoogle = () => {
+	/* 	const loginWithGoogle = () => {
 		signInWithPopup(Auth, new GoogleAuthProvider())
 			.then((usercred) => {
 				router.push("/mailing");
@@ -71,34 +71,46 @@ export default function Form({ probando }) {
 			.catch((err) => {
 				console.log(err);
 			});
-	};
+	}; */
 
-	const loginWithHermes = async (body) => {
+	const loginWithHermes = async ({ email, password }) => {
 		const response = await fetch(ENDPOINT + "api/auth/login", {
-		  headers: { "Content-Type": "application/json" },
-		  method: "POST",
-		  body: JSON.stringify(body),
+			headers: { "content-type": "application/json" },
+			method: "POST",
+			body: JSON.stringify({ email, password }),
 		});
-	  
+
 		const result = await response.json();
+
 		console.log(result);
-	  
+
+		/* console.log(body);
+		const response = await fetch(ENDPOINT + "api/auth/login", {
+			headers: { "Content-Type": "application/json" },
+			method: "POST",
+			body: JSON.stringify(body),
+		});
+
+		console.log(result);
+
 		if (result.statusCode === 200) {
-		  setToken(result.data);
-		  router.push("/mailing");
+			setToken(result.data);
+			router.push("/mailing");
 		} else {
-		  // Muestra alerta en caso de error
-		  if (typeof window !== 'undefined') {
-			if (result.errorField === 'email') {
-			  alertify.error('Correo incorrecto. Verifique su correo electrónico.');
-			} else if (result.errorField === 'password') {
-			  alertify.error('Contraseña incorrecta. Verifique su contraseña.');
-			} else {
-			  alertify.error('Credenciales incorrectas. Verifique su correo y contraseña.');
+			// Muestra alerta en caso de error
+			if (typeof window !== "undefined") {
+				if (result.errorField === "email") {
+					alertify.error("Correo incorrecto. Verifique su correo electrónico.");
+				} else if (result.errorField === "password") {
+					alertify.error("Contraseña incorrecta. Verifique su contraseña.");
+				} else {
+					alertify.error(
+						"Credenciales incorrectas. Verifique su correo y contraseña."
+					);
+				}
 			}
-		  }
-		}
-	  };
+		} */
+	};
 
 	// const loginWithHermes = async (body) => {
 	// 	const response = await fetch(ENDPOINT + "api/auth/login", {
@@ -120,13 +132,13 @@ export default function Form({ probando }) {
 		<form className="h-full" onSubmit={handleSubmit(loginWithHermes)}>
 			<div className="h-[10%] flex items-end justify-center  text-2xl text-black relative">
 				<h1 className="font-semibold border-b border-black">Hermes</h1>
-				<Image
+				{/* 	<Image
 					src="/svg/iconproject.svg"
 					className="h-full"
 					height={40}
 					width={40}
 					alt=""
-				/>
+				/> */}
 			</div>
 			<div className="flex flex-col justify-evenly gap-6 h-[45%] w-[90%] mx-auto   ">
 				<div className="relative">
@@ -197,7 +209,6 @@ export default function Form({ probando }) {
 						variant="gradient"
 						color="gray"
 						className="group relative text-xs justify-center w-full flex items-center gap-3 overflow-hidden pl-2 pr-[50px] max-w-[300px]"
-						onClick={loginWithGitHub}
 					>
 						Inicie sesion con GitHub
 						<span className="absolute right-0 grid h-full w-12 place-items-center bg-gray-700 transition-colors group-hover:bg-gray-600">
@@ -214,7 +225,6 @@ export default function Form({ probando }) {
 						variant="gradient"
 						color="white"
 						className="group relative text-xs justify-center w-full flex items-center gap-3 overflow-hidden pl-2 pr-[50px] max-w-[300px]"
-						onClick={loginWithGoogle}
 					>
 						Inicie sesion con Google
 						<span className="absolute right-0 grid h-full w-12 place-items-center bg-[#F1FCFC] transition-colors group-hover:bg-[#EBF5F5]">

@@ -24,7 +24,7 @@ export default async function HomePage() {
 					</div>
 				</div>
 			</div>
-			<div className="bg-[url('/svg/background_form.svg')] absolute bottom-0 right-0 top-0 left-0 bg-cover -scale-x-100 -z-10"></div>
+			<div className="bg-[url('/image/weqwe.jpg')] absolute bottom-0 right-0 top-0 left-0 bg-cover -scale-x-100 -z-10"></div>
 		</>
 	);
 }
