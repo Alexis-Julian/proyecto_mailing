@@ -3,15 +3,49 @@ import Image from "next/image";
 import { Input, Button } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import PopoverWithDescription from "./PopoverWithDescription";
+import { ENDPOINT } from "@/shares/constants";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+
 export default function FormLogin() {
+	const [useToken, setToken] = useState("");
+
+	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
 
-	const registerWithHermes = (probando) => {
-		console.log(probando);
+	useEffect(() => {
+		if (useToken) {
+			Cookies.set("accessToken", useToken, { expires: 1, path: "/" });
+			router.push("/mailing");
+		}
+	}, [useToken, router]);
+
+	useEffect(() => {
+		if (Cookies.get("accessToken")) {
+			router.push("/mailing");
+		}
+	}, [router]);
+
+	const registerWithHermes = async (body) => {
+		const response = await fetch(ENDPOINT + "api/auth/register", {
+			headers: { "content-type": "application/json" },
+			method: "POST",
+			body: JSON.stringify(body),
+		});
+
+		const data = await response.json();
+		console.log(data);
+		if (data.statusCode == 201) {
+			setToken(data.data);
+		} else {
+			console.log("Problem in fetch request");
+		}
 	};
 	return (
 		<form

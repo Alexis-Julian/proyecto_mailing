@@ -12,6 +12,8 @@ const validationToken = async (token) => {
 
 		const data = await response.json();
 
+		console.log(data);
+
 		if (data.statusCode === 202) {
 			return true;
 		} else {

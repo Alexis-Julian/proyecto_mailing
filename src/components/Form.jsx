@@ -3,26 +3,15 @@ import { Button, Input, Checkbox } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Cookies from "js-cookie";
-import { test } from "@/app/mailing/utils";
-// import alertify from "alertifyjs";
-// import "alertifyjs/build/css/alertify.css";
-// import "alertifyjs/build/css/themes/default.css";
-import {
-	signInWithPopup,
-	GoogleAuthProvider,
-	onAuthStateChanged,
-	GithubAuthProvider,
-	signInWithEmailAndPassword,
-	createUserWithEmailAndPassword,
-} from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { ENDPOINT } from "@/shares/constants";
-import { auth as Auth, app, db } from "@/config/firebase-config";
 import { useEffect, useState } from "react";
 
 export default function Form({ probando }) {
-	const [token, setToken] = useState("");
+	const [useToken, setToken] = useState("");
+
 	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
@@ -30,48 +19,17 @@ export default function Form({ probando }) {
 	} = useForm();
 
 	useEffect(() => {
-		if (token) {
-			Cookies.set("accessToken", token, { expires: 1, path: "/" });
+		if (useToken) {
+			Cookies.set("accessToken", useToken, { expires: 1, path: "/" });
 			router.push("/mailing");
 		}
-	}, [router, token]);
+	}, [useToken, router]);
 
 	useEffect(() => {
 		if (Cookies.get("accessToken")) {
 			router.push("/mailing");
 		}
 	}, [router]);
-
-	/* 	useEffect(() => {
-		onAuthStateChanged(Auth, (usercred) => {
-			console.log("SE EJECUTOOO PAAA");
-			if (usercred) {
-				usercred.getIdToken().then((tok) => {
-					setToken(tok);
-				});
-			}
-		});
-	}, []); */
-
-	/* 	const loginWithGoogle = () => {
-		signInWithPopup(Auth, new GoogleAuthProvider())
-			.then((usercred) => {
-				router.push("/mailing");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
-
-	const loginWithGitHub = () => {
-		signInWithPopup(Auth, new GithubAuthProvider())
-			.then((usercred) => {
-				router.push("/mailing");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}; */
 
 	const loginWithHermes = async ({ email, password }) => {
 		const response = await fetch(ENDPOINT + "api/auth/login", {
@@ -82,7 +40,9 @@ export default function Form({ probando }) {
 
 		const result = await response.json();
 
-		console.log(result);
+		if (result.statusCode == 200) {
+			setToken(result.data);
+		}
 
 		/* console.log(body);
 		const response = await fetch(ENDPOINT + "api/auth/login", {
@@ -132,13 +92,6 @@ export default function Form({ probando }) {
 		<form className="h-full" onSubmit={handleSubmit(loginWithHermes)}>
 			<div className="h-[10%] flex items-end justify-center  text-2xl text-black relative">
 				<h1 className="font-semibold border-b border-black">Hermes</h1>
-				{/* 	<Image
-					src="/svg/iconproject.svg"
-					className="h-full"
-					height={40}
-					width={40}
-					alt=""
-				/> */}
 			</div>
 			<div className="flex flex-col justify-evenly gap-6 h-[45%] w-[90%] mx-auto   ">
 				<div className="relative">

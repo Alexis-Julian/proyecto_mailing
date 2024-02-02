@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import { Roboto } from "next/font/google";
+import Head from "next/head";
 import "../config/firebase-config";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
 					crossOrigin="anonymous"
 					referrerPolicy="no-referrer"
 				/>
+
 				{children}
 			</body>
 		</html>
