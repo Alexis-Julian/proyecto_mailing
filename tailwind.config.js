@@ -13,7 +13,12 @@ module.exports = withMT({
 		"path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
 	],
 	plugins: [require("flowbite/plugin")],
-	theme: {},
+	theme: {
+		fontFamily: {
+			/* sans: ['sans-serif', 'Lato', 'Quicksand', ...defaultTheme.fontFamily.sans, 'Poppins'], */
+			Poppins: ["Poppins", "sans-serif"],
+		},
+	},
 	body: [
 		"Poppins",
 		"Inter",
@@ -34,6 +39,6 @@ module.exports = withMT({
 	],
 	fontFamily: {
 		/* sans: ['sans-serif', 'Lato', 'Quicksand', ...defaultTheme.fontFamily.sans, 'Poppins'], */
-		sans: ["Poppins", "sans-serif"],
+		Poppins: ["Poppins", "sans-serif"],
 	},
 });

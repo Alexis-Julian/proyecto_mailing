@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import { Roboto } from "next/font/google";
+
 import Head from "next/head";
 import "../config/firebase-config";
 import "./globals.css";

@@ -152,7 +152,10 @@ export default function Form({ probando }) {
 					<p className="text-blue-600 cursor-pointer hover:text-blue-800">
 						Olvido su contraseña?{" "}
 					</p>
-					<p className="text-blue-600 cursor-pointer hover:text-blue-800">
+					<p
+						className="text-blue-600 cursor-pointer hover:text-blue-800"
+						onClick={() => router.push("/register")}
+					>
 						Desea registrarse?{" "}
 					</p>
 				</div>

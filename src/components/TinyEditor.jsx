@@ -8,13 +8,14 @@ import { Button } from "@material-tailwind/react";
 
 import { auth as Auth } from "@/config/firebase-config";
 import { signOut } from "firebase/auth";
-
-import { IconButton } from "@material-tailwind/react";
+import HistoryIcon from "@mui/icons-material/History";
+import MessageIcon from "@mui/icons-material/Message";
+import HomeIcon from "@mui/icons-material/Home";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { tinyMCEconfig } from "@/config/tinymce-config";
-import CustomSpinner from "./CustomSpinner";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { TableContacts } from "./TableContacts";
 
-export default function TinyEditor() {
+export default function TinyEditor({ data }) {
 	const [isContactOpen, setIsContactOpen] = useState(true);
 	const [Loading, setLoading] = useState(false);
 	const [useSection, setSection] = useState(0);
@@ -29,12 +30,12 @@ export default function TinyEditor() {
 		});
 	};
 
-	useEffect(() => {
+	/* 	useEffect(() => {
 		initTinyMCE();
 		return () => {
 			tinymce.remove();
 		};
-	}, []);
+	}, []); */
 
 	const HandleToggleContacts = () => {
 		setIsContactOpen(!isContactOpen);
@@ -74,113 +75,63 @@ export default function TinyEditor() {
 			});
 	};
 
-	const items = ["☮", "☮", "☮", "☮"];
+	const items = [
+		<HomeIcon key="first" />,
+		<MessageIcon key="second" />,
+		<ContactMailIcon key="third" />,
+		<HistoryIcon key="fourth" />,
+	];
+
+	const part = 100 / items.length;
 
 	const handleTest = (index) => {
 		console.log(index);
 	};
 	return (
 		<>
-			<div className="h-full w-full flex ">
+			<div className="h-full w-full flex relative ">
 				<div className="w-[10%]  h-full flex items-center justify-center  ">
-					{/* <Contacts isContactOpen={isContactOpen} /> */}
-					<div className="text-black h-[50%] w-[60%] rounded-full relative   overflow-hidden">
+					<div className="text-black h-[50%] w-[50%] rounded-full relative border-[2px]  border-[#99ddd0]   overflow-hidden">
 						<div
-							className="bg-[#0071f1] absolute h-[25%] w-[100%]  transition-all rounded-md"
-							style={{ transform: `translateY(${useSection}%)` }}
+							className="bg-[#2f76b4] absolute h-[25%] w-[100%]  duration-500  transition-all rounded-md  "
+							style={{ transform: `translateY(${useSection.index * 100}%)` }}
 						></div>
 						<ul className="h-full w-full  bg-white rounded-full flex flex-col items-center justify-around ">
 							{items.map((e, index) => {
 								return (
 									<li
 										key={index}
-										className="z-50 cursor-pointer w-full h-full flex items-center justify-center "
-										onClick={() => setSection(index * 100)}
+										className={`z-50 cursor-pointer w-full h-[25%] flex items-center justify-center ${
+											useSection.index == index && "text-white"
+										}`}
+										onClick={() => setSection({ item: part * index, index })}
 									>
-										<span class="material-symbols-outlined"></span>
+										<p className="">{e}</p>
 									</li>
 								);
 							})}
 						</ul>
 					</div>
 				</div>
-				<div className="w-full  relative  "></div>
-			</div>
-
-			{/* <div
-				className={`h-full ${
-					!isContactOpen ? "w-[85%]" : "w-full"
-				} relative duration-150`}
-			>
-					<div className="absolute z-10 top-4 left-4 flex gap-3">
-					<Button
-						color="blue"
-						className="flex gap-2 items-center rounded-md text-white px-4 py-2"
-						onClick={HandleToggleContacts}
-					>
-						<span className="hidden sm:inline">Destinatarios</span>
-						<i
-							className={
-								isContactOpen
-									? "fa-solid fa-arrow-left transition-all "
-									: "fa-solid fa-arrow-left rotate-180 transition-all"
-							}
-						></i>
-					</Button>
-					<Button
-						color="red"
-						className="flex gap-2 items-center rounded-md text-white px-4 py-2"
-						onClick={HandleSignOut}
-					>
-						<span className="hidden sm:inline">Logout</span>
-						<XMarkIcon className="h-4 w-4" />
-					</Button>
-				</div>
-				<div
-					className={
-						isContactOpen
-							? "h-full scale-x-[100%] origin-left p-1 transition-all  "
-							: "h-full scale-x-[80%]  origin-left p-1 transition-all  "
-					}
-				>
-					<div className=" h-[100%] my-auto flex items-center justify-center">
-						<div className="w-[80%] mx-auto h-[95%] my-auto mt-20">
-							{Loading ? (
-                <div className="h-full w-full  flex  items-center justify-center">
-                  <CustomSpinner />
-                </div>
-              ) : (
-                <Editor
-                  int
-                  init={{
-                    height: "100%",
-                    menubar: false,
-                    plugins: [
-                      "advlist autolink lists link image charmap print preview anchor",
-                      "searchreplace visualblocks code fullscreen",
-                      "insertdatetime media table paste code help wordcount",
-                      "uploadimage",
-                    ],
-                    toolbar:
-                      "undo redo | formatselect | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image media table code | help",
-                    images_upload_credentials: true,
-                    file_picker_types: "image",
-                    file_picker_callback: "handleFileUpload",
-                  }}
-                />
-              )}
-
-							<Button
-								color="blue"
-								className="flex items-center mx-auto my-auto mt-4 rounded-md text-white px-4 py-2"
-								onClick={handleSubmit}
-							>
-								Enviar
-							</Button>
+				<div className="w-full h-full flex items-center justify-center  relative">
+					<div className="h-[90%] w-[90%] bg-white rounded-md overflow-hidden">
+						<div
+							className=" duration-500 transition-all"
+							style={{
+								height: `${items.length * 100}%`,
+								transform: `translateY(-${useSection.item}%)`,
+							}}
+						>
+							<div className="text-black h-[25%] ">1</div>
+							<div className="text-black h-[25%] ">2</div>
+							<div className="text-black h-[25%]  ">
+								<TableContacts data={data} />
+							</div>
+							<div className="text-black  h-[25%]">4</div>
 						</div>
 					</div>
 				</div>
-			</div> */}
+			</div>
 		</>
 	);
 }
