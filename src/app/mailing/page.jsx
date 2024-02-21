@@ -1,12 +1,19 @@
-import Contacts from "@/components/Contacts";
 import TinyMCE, { MembersTable } from "../../components/TinyEditor";
 import TinyEditor from "../../components/TinyEditor";
 import { ENDPOINT } from "@/shares/constants";
 import { cookies } from "next/headers";
-import { get } from "react-hook-form";
-import { data } from "autoprefixer";
+import Mailing from "@/components/Mailing";
 
-const HomePage = () => {
+async function fetchContacts() {
+	try {
+		const response = await fetch("http://localhost:3000/api/mailing");
+		const data = await response.json();
+		if (data.statusCode != 200) return null;
+		return data.data;
+	} catch (e) {}
+}
+
+const HomePage = async () => {
 	const getEmails = async () => {
 		const response = await fetch(ENDPOINT + "api/email", {
 			headers: {
@@ -22,13 +29,12 @@ const HomePage = () => {
 			return null;
 		}
 	};
-	const data = getEmails();
+	/* const data = getEmails(); */
+	const data = await fetchContacts();
 
 	return (
-		<div className="h-full relative w-full overflow-hidden ">
-			<TinyEditor data={data} />
-			<div className="bg-black absolute h-full w-full left-0 right-0 bottom-0 top-0 -z-[9] opacity-40"></div>
-			<div className="absolute  bg-[url('/image/weqwe.jpg')]   -scale-x-100  left-0 top-0 bottom-0 right-0 -z-10"></div>
+		<div className="h-full animate-fade-in  w-[80%] mx-auto relative  overflow-hidden flex flex-col gap-4 ">
+			<Mailing contacts={data} />
 		</div>
 	);
 };

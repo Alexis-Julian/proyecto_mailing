@@ -42,7 +42,7 @@ export default async function middleware(request) {
 	}
 
 	if (request.nextUrl.pathname.includes("/mailing")) {
-		const cookieToken = cookies().get("accessToken");
+		/* const cookieToken = cookies().get("accessToken");
 		console.log(cookieToken);
 		try {
 			const response = await validationToken(cookieToken.value);
@@ -53,7 +53,7 @@ export default async function middleware(request) {
 			return NextResponse.next();
 		} catch (err) {
 			return NextResponse.redirect(new URL("/home", request.url));
-		}
+		} */
 	}
 }
 
