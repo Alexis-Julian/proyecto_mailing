@@ -1,5 +1,6 @@
 import CardMessage from "@/components/Card";
-export default function History() {
+import { ENDPOINT } from "@/shares/constants";
+export default async function History() {
 	const TestMessage = [
 		{
 			id: 1,
@@ -92,6 +93,18 @@ export default function History() {
 			date: "2024-01-25T11:02:17.527Z",
 		},
 	];
+
+	const FetchingHistory = async () => {
+		const response = await fetch(ENDPOINT + "/api/message");
+		const data = await response.json();
+		if (data.statusCode == 200) {
+			return data.data;
+		} else {
+			return null;
+		}
+	};
+
+	const messageHistory = await FetchingHistory();
 
 	return (
 		<div className="h-full w-full overflow-y-scroll">

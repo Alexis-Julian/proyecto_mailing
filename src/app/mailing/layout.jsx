@@ -2,8 +2,8 @@ import { ComplexNavbar } from "@/components/NavBar";
 
 export default function MailingLayout({ children }) {
 	return (
-		<div className="h-full w-full   overflow-hidden ">
-			<header className=" h-[10%] w-full flex items-center justify-center">
+		<div className="h-full w-full relative   overflow-hidden ">
+			<header className="h-[10%] w-full  top-0 flex items-center justify-center">
 				<ComplexNavbar />
 			</header>
 			<main className="h-[90%]">{children}</main>
